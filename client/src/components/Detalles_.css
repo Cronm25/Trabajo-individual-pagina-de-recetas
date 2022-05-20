@@ -1,0 +1,62 @@
+.component{
+    height: auto;
+}
+
+.title{
+    color: rgb(255, 238, 213);
+    font-family: 'Droid serif', serif; 
+    font-size: 36px; 
+    font-weight: 400; 
+    font-style: italic; 
+    line-height: 44px; 
+    margin: 10px 12px;
+    padding: 10px 12px; 
+    text-align: center;
+}
+
+.imgContainer{
+    float: left;
+    margin: 12px;
+    padding: 20px;
+}
+
+.img{
+    border-radius: 10px;
+}
+
+.detailContainer{
+    margin: 12px;
+    padding: 20px;
+    border: 3px solid rgb(255, 253, 233);
+    border-radius: 10px;
+}
+.h3{
+    color: rgb(255, 253, 233);
+    font-family: 'Droid serif', serif; 
+    font-size: 24px; 
+    font-weight: 200; 
+    font-style: italic; 
+    line-height: 44px; 
+    margin: 10px 12px;
+    padding: 10px 12px; 
+}
+
+.p{
+    display: contents;
+    color: rgb(255, 253, 233); 
+    font-size: 29px; 
+    font-family: "Libre Baskerville", serif; 
+    line-height: 45px; 
+    text-align: center; 
+    text-shadow: 0 1px 1px rgb(255, 253, 233); 
+    padding: 20px; 
+}
+.li{
+    display: list-item;
+    text-align: left;
+    font-size: 29px;
+    font-family: "Libre Baskerville", serif;
+    list-style-type: disc;
+    list-style-position: inside;
+    text-transform: capitalize;
+}

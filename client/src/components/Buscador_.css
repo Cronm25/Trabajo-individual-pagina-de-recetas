@@ -1,0 +1,30 @@
+.Container{
+    display: flex;
+    width: 100%;
+}
+.Input{
+    font-size: large;
+    border-radius: 5px;
+    border: 2px solid #a8f5ff;
+    background-color: transparent;
+    color: #a8f5ff;
+}
+.Buscar{
+    padding: 5px;
+    margin: 5px;
+    width: 100px;
+    font-size: large;
+    border-radius: 5px;
+    border: 2px solid #a8f5ff;
+    background-color: transparent;
+    color: #a8f5ff;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.Buscar:hover{
+    background-color: #1f7d25;
+    color: white;
+    border: 2px solid #1f7d25
+}

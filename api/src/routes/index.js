@@ -78,7 +78,7 @@ router.get('/types',async(req,res)=>{
         })
     });
     const AllDiets= await Diet.findAll();
-    res.send(AllDiets);
+    res.status(200).send(AllDiets);
 })
 router.post('/recipe', async(req,res)=>{
     let {Nombre, Resumen, Puntuacion, Nivel_saludable, image, Paso_a_Paso,diets,createdInDb}= req.body;
@@ -86,7 +86,7 @@ router.post('/recipe', async(req,res)=>{
         Nombre, Resumen, Puntuacion, Nivel_saludable, image, Paso_a_Paso,createdInDb
     })
     let DietasDB=await Diet.findAll({where:{name:diets}})
-    Crear_receta.addRecipe(DietasDB)
+    Crear_receta.addDiet(DietasDB)
     res.status(201).send("Receta creada")
 })
 module.exports = router;
