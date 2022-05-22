@@ -1,18 +1,37 @@
+*, *:before, *:after {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+  
 .Card {
     font: 14px/22px "Lato", Arial, sans-serif;
     color: #ffffff;
-    padding: 40px 0;
+    
+}
+.cardTitle{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 25px;
+  margin: 10px 0;
 }
 
-.container {
-  margin: 0 auto;
+.cardDescription {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: x-large;
+  line-height: 22px;
+  margin: 7px 0;
+}
+.cardContainer {
+  margin: 10px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 700px;
-  background-color: #0e3d58;
-  border: rgb(0, 0, 0) 3px solid;
+  width:500px;
+  background-color: #38769a3a;
+  border: rgba(145, 99, 0, 0.923) 3px solid;
   border-radius: 5px;
+
 
 }
 .img img {
@@ -31,4 +50,12 @@
     text-transform: uppercase;
     text-decoration: none;
     color: tomato;
+  }
+  .Boton:after {
+    background-color: #b8bddd;
+    display: block;
+    height: 1px;
+    position: absolute;
+    top: 9px;
+    width: 75%;
   }

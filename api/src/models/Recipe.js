@@ -10,30 +10,30 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    Nombre: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    Resumen: {
+    summary: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    Puntuacion: {
+    spoonacularScore: {
       type: DataTypes.INTEGER,
       validate: {
         min: 0,
         max: 100
       }
     },
-    Nivel_saludable: {
+    healthScore: {
       type: DataTypes.INTEGER,
       validate: {
         min: 0,
         max: 100
       }
     },
-    Paso_a_paso: {
+    analyzedInstructions: {
       type: DataTypes.STRING,
       allowNull: true,
     },

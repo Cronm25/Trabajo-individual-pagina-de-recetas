@@ -18,8 +18,8 @@
     border-radius: 1rem;
 }
 .bkgcolor{
+    background-position: center;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.253);
     height: 100%;
     width: 77%;
     border-radius: 1rem;
@@ -37,6 +37,7 @@
     z-index: 2;
     width: 60%;
     padding: 20px;
+    
 }
 h1 { color: blanchedalmond;
      font-family: 'Droid serif', serif; 

@@ -5,9 +5,9 @@
 .Input{
     font-size: large;
     border-radius: 5px;
-    border: 2px solid #a8f5ff;
+    border: 2px solid #ffffff;
     background-color: transparent;
-    color: #a8f5ff;
+    color: #ffffff;
 }
 .Buscar{
     padding: 5px;
@@ -15,9 +15,9 @@
     width: 100px;
     font-size: large;
     border-radius: 5px;
-    border: 2px solid #a8f5ff;
+    border: 2px solid #ffffff;
     background-color: transparent;
-    color: #a8f5ff;
+    color: #ffffff;
     text-decoration: none;
     cursor: pointer;
     transition-duration: 0.4s;

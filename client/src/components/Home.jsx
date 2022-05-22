@@ -1,7 +1,7 @@
 import React from "react";
 import {useState,useEffect} from "react";
 import {useDispatch,useSelector} from "react-redux"
-import { getRecetas,OrdenPorScore,OrdenPorNombre,FiltradoPorDietas} from "../actions";
+import { getRecetas,OrdenPorScore,OrdenPorNombre,FiltradoPorDietas,getDietas} from "../actions";
 import Card from "./Card";
 import Paginado from "./Paginas_N";
 import Buscar from "./Buscador";
@@ -10,7 +10,7 @@ import "./Home_.css";
 export default function Home (){
     const dispatch = useDispatch();
     const recipes = useSelector((state)=>state.recipes)
-    const diets = useSelector(state => state.diets);
+    const diets = useSelector(state => state.Dietas);
     const [orden,setOrden]= useState(1)
     const [currentPage,setCurrentPage]= useState(1)
     const [RecetasPorPagina,setRecetasPorPagina]=useState(9)
@@ -22,7 +22,9 @@ export default function Home (){
     }
     useEffect(()=>{
         dispatch(getRecetas());
+        dispatch(getDietas());
     },[dispatch])
+    
     function handleOrdenAlfabetico(e){
         e.preventDefault();
         dispatch(OrdenPorNombre(e.target.value));
@@ -55,25 +57,25 @@ export default function Home (){
                     <option value="Z-A">Z-A</option>
             </select>
             <select onChange={e=>handleOrdenScore(e)} defaultValue='default' className="filters">
-                    <option value="default" disabled >Puntuación</option>
+                    <option value="default" disabled >Puntuacion saludable</option>
                     <option value="Descendente">Descendente</option>
                     <option value="Ascendente">Ascendente</option>
             </select>
             <select onChange={e=>handleFiltroDietas(e)} defaultValue='default' className="filters">
                     <option value="default" disabled >Filtro de dietas</option>
                     {
-                        diets && diets.map(d =>{
-                            <option value={d.name} key={d.id}>{d.name}</option>
-                        })
+                        diets && diets.map(d =>(
+                            <option value={d.name} key={d.name}>{d.name}</option>
+                        ))
                     }
             </select>
             </div>
             <div>
-                <div id="lista">
+                <div className="lista">
                 {
-                    currentRecetas && currentRecetas.map(el=>{
-                        return (<Card img={el.image} name={el.Nombre} diet={el.dietas} id={el.id}/>)
-                    })
+                    currentRecetas && currentRecetas.map(el=>(
+                        <Card nombre={el.nombre} id={el.id} diets={el.diets} image={el.image} createdInDb={el.createdInDb} key={el.id}/>
+                    ))
                 }
                 </div>
             <Paginado 

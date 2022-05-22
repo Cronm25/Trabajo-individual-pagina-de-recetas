@@ -27,9 +27,11 @@ function rootReducer (state = initialState , action){
             const allRecetas = state.TodasRecipes
             const dietasFiltered=action==="All"?allRecetas:
             allRecetas.filter(el=>{
-                
+                let names = !el.createdInDb?
+                el.diets.map(d => d):
+                el.diets.map(d => d.name)
+                if (names.includes(action.payload)) return el
             })
-
             return{
                 ...state,
                 recipes: dietasFiltered,
@@ -37,19 +39,19 @@ function rootReducer (state = initialState , action){
         case ORDEN_POR_SCORE:
             let arreglo1 = action.payload === "Ascendente" ?
             state.recipes.sort(function(a,b){
-                if(a.Puntuacion > b.Puntuacion){
+                if(a.healthScore > b.healthScore){
                     return 1;
                 }
-                if(a.Puntuacion < b.Puntuacion){
+                if(a.healthScore < b.healthScore){
                     return -1;
                 }
                 return 0;
             }): 
             state.recipes.sort(function(a,b){
-                if(a.Puntuacion > b.Puntuacion){
+                if(a.healthScore > b.healthScore){
                     return -1;
                 }
-                if(a.Puntuacion < b.Puntuacion){
+                if(a.healthScore < b.healthScore){
                     return 1;
                 }
                 return 0;
@@ -61,19 +63,19 @@ function rootReducer (state = initialState , action){
         case ORDEN_POR_NOMBRE:
             let arreglo = action.payload === "A-Z" ?
             state.recipes.sort(function(a,b){
-                if(a.Nombre > b.Nombre){
+                if(a.nombre > b.nombre){
                     return 1;
                 }
-                if(a.Nombre < b.Nombre){
+                if(a.nombre < b.nombre){
                     return -1;
                 }
                 return 0;
             }): 
             state.recipes.sort(function(a,b){
-                if(a.Nombre > b.Nombre){
+                if(a.nombre > b.nombre){
                     return -1;
                 }
-                if(a.Nombre < b.Nombre){
+                if(a.nombre < b.nombre){
                     return 1;
                 }
                 return 0;

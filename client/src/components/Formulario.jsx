@@ -6,20 +6,20 @@ import NavBar from "./NavBar";
 import "./Formulario_.css";
 function Validator(post){
     let errors={};
-    if (!post.Nombre) {
-        errors.Nombre = 'Ingresar nombre de la receta'
+    if (!post.nombre) {
+        errors.nombre = 'Ingresar nombre de la receta'
     }
-    if (!post.Resumen) {
-        errors.Resumen = 'Escribe un breve resumen'
+    if (!post.summary) {
+        errors.summary = 'Escribe un breve resumen'
     }
-    if (!post.Puntuacion || post.Puntuacion < 0 || post.Puntuacion > 100) {
-        errors.Puntuacion = 'Ingresa un valor de 0 a 100'
+    if (!post.spoonacularScore || post.spoonacularScore < 0 || post.spoonacularScore > 100) {
+        errors.spoonacularScore = 'Ingresa un valor de 0 a 100'
     }
     if (!post.Nivel_saludable || post.Nivel_saludable < 0 || post.Nivel_saludable > 100) {
         errors.Nivel_saludable = 'Ingresa un valor de 0 a 100'
     }
-    if (!post.Paso_a_paso.length) {
-        errors.stepByStep = 'Escribe una serie de pasos sobre cómo cocinar la receta'
+    if (!post.healthScore.length) {
+        errors.healthScore = 'Escribe una serie de pasos sobre cómo cocinar la receta'
     }
     if (!post.image) {
         errors.image = 'Ingresar URL de alguna imagen representativa'
@@ -32,28 +32,28 @@ function Validator(post){
 
 export default function Formulario(){
     const dispatch = useDispatch();
-    const diets = useSelector(state => state.diets);
+    const diets = useSelector(state => state.Dietas);
     const [errors,setErrors] = useState({});
     useEffect(()=>{
         dispatch(getDietas())
     },[dispatch])
     const[crear,setCrear]=useState({
-        Nombre:"",
-        Resumen:"",
-        Puntuacion:0,
-        Nivel_saludable:0,
+        nombre:"",
+        summary:"",
+        spoonacularScore:0,
+        healthScore:0,
         image:"",
-        Paso_a_paso:[],
+        analyzedInstructions:[],
         diets:[]
     })
     function handleCrear(e){
         setCrear({
             ...crear,
-            [e.target.Nombre]:e.target.value
+            [e.target.name]:e.target.value
         });
         setErrors(Validator({
             ...crear,
-            [e.target.Nombre]:e.target.value
+            [e.target.name]:e.target.value
         }))
     }
     function handleComprobar(e){
@@ -80,11 +80,11 @@ export default function Formulario(){
     function handle_P_a_P(e) {
         setCrear({
             ...crear,
-            stepByStep: [e.target.value]
+            analyzedInstructions: [e.target.value]
         });
         setErrors(Validator({
             ...crear,
-            stepByStep: e.target.value
+            analyzedInstructions: e.target.value
         }));
     }
 
@@ -104,35 +104,36 @@ export default function Formulario(){
             <NavBar/>
         <div className="container">
             <div className="bkg">
+            <div className="bkgcolor">
                 <div className="form">
                     <h1>Crear receta</h1>
                 <form onSubmit={e => handleComprobar(e)}>
                     <div>
                         <label>Nombre</label>
-                        <input type="text" value={crear.Nombre} name="Nombre" onChange={e => handleCrear(e) }/>
-                        {errors.Nombre && (
-                            <p>{errors.Nombre}</p>
+                        <input type="text" value={crear.nombre} name="nombre" onChange={e => handleCrear(e) }/>
+                        {errors.nombre && (
+                            <p>{errors.nombre}</p>
                         )}
                     </div>
                     <div>
                         <label>Resumen</label>
-                        <textarea value={crear.Resumen} name="Resumen" onChange={e => handleCrear(e) }/>
-                        {errors.Resumen && (
-                            <p>{errors.Resumen}</p>
+                        <textarea value={crear.summary} name="summary" onChange={e => handleCrear(e) }/>
+                        {errors.summary && (
+                            <p>{errors.summary}</p>
                         )}
                     </div>
                     <div>
                         <label>Puntuacion</label>
-                        <input type="number" min="0" max='100' value={crear.Puntuacion} name="Puntuacion" onChange={e => handleCrear(e) }/>
-                        {errors.Puntuacion && (
-                            <p>{errors.Puntuacion}</p>
+                        <input type="number" min="0" max='100' value={crear.spoonacularScore} name="spoonacularScore" onChange={e => handleCrear(e) }/>
+                        {errors.spoonacularScore && (
+                            <p>{errors.spoonacularScore}</p>
                         )}
                     </div>
                     <div>
                         <label>Nivel_saludable</label>
-                        <input type="number" min="0" max='100' value={crear.Nivel_saludable} name="Nivel_saludable" onChange={e => handleCrear(e) }/>
-                        {errors.Nivel_saludable && (
-                            <p>{errors.Nivel_saludable}</p>
+                        <input type="number" min="0" max='100' value={crear.healthScore} name="healthScore" onChange={e => handleCrear(e) }/>
+                        {errors.healthScore && (
+                            <p>{errors.healthScore}</p>
                         )}
                     </div>
                     <div>
@@ -143,10 +144,10 @@ export default function Formulario(){
                         )}
                     </div>
                     <div>
-                        <label>Paso_a_paso</label>
-                        <textarea type="text" value={crear.Paso_a_paso} name="Paso_a_paso" onChange={e => handle_P_a_P(e) }/>
-                        {errors.Paso_a_paso && (
-                            <p>{errors.Paso_a_paso}</p>
+                        <label>Paso a Paso</label>
+                        <textarea type="text" value={crear.Paso_a_paso} name="analyzedInstructions" onChange={e => handle_P_a_P(e) }/>
+                        {errors.analyzedInstructions && (
+                            <p>{errors.analyzedInstructions}</p>
                         )}
                     </div>
                     <div>
@@ -160,16 +161,17 @@ export default function Formulario(){
                             <p>{errors.diets}</p>
                         )}
                         {crear.diets.map(d =>
-                            <div key={d.id} className="divdiets">
-                                <p className="selecteddiets">{d}</p>
-                                <button onClick={() => handleEliminarDiet(d)}
+                            (<div key={d.id} className="divdiets">
+                                <p  key={d.id} className="selecteddiets">{d}</p>
+                                <button key={d.id} onClick={() => handleEliminarDiet(d)}
                                 className="buttonclose">X</button>
-                            </div>
+                            </div>)
                         )}
                     </div>
                     <button type="submit" className="createButton">Crear!</button>
                 </form>
                 </div>
+            </div>
             </div>
         </div>
         </div>
