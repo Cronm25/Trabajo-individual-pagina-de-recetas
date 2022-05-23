@@ -71,12 +71,28 @@ router.get('/types',async(req,res)=>{
     
 })
 router.post('/recipe', async(req,res)=>{
-    let {nombre, summary, spoonacularScore, healthScore, image, analyzedInstructions,diets,createdInDb}= req.body;
-    let Crear_receta = await Recipe.create({
-        nombre, summary, spoonacularScore, healthScore, image, analyzedInstructions,createdInDb
-    })
-    let DietasDB=await Diet.findAll({where:{name:diets}})
-    Crear_receta.addDiet(DietasDB)
-    res.status(201).send("Receta creada")
+    try {
+        let {nombre, summary, spoonacularScore, healthScore, image, analyzedInstructions,diets,createdInDb}= req.body;
+        console.log("1.")
+        let Crear_receta = await Recipe.create({
+            nombre,
+            summary, 
+            spoonacularScore, 
+            healthScore,
+            image,
+            analyzedInstructions:analyzedInstructions,
+            createdInDb
+        })
+        console.log("2..")
+        let DietasDB=await Diet.findAll({where:{name:diets}})
+        console.log("3...")
+        Crear_receta.addDiet(DietasDB)
+        console.log("4....")
+        res.status(201).send("Receta creada")
+        console.log("5....")
+    } catch (error) {
+        console.log(error.message)
+    }
+    
 })
 module.exports = router;

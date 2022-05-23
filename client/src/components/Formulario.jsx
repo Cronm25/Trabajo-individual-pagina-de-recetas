@@ -1,7 +1,7 @@
 import React from "react";
 import {useState,useEffect} from "react";
 import {useDispatch,useSelector} from "react-redux"
-import {getDietas,CrearReceta } from "../actions";
+import {getDietas,postRecipe } from "../actions";
 import NavBar from "./NavBar";
 import "./Formulario_.css";
 function Validator(post){
@@ -15,11 +15,11 @@ function Validator(post){
     if (!post.spoonacularScore || post.spoonacularScore < 0 || post.spoonacularScore > 100) {
         errors.spoonacularScore = 'Ingresa un valor de 0 a 100'
     }
-    if (!post.Nivel_saludable || post.Nivel_saludable < 0 || post.Nivel_saludable > 100) {
-        errors.Nivel_saludable = 'Ingresa un valor de 0 a 100'
+    if (!post.healthScore || post.healthScore < 0 || post.healthScore > 100) {
+        errors.healthScore = 'Ingresa un valor de 0 a 100'
     }
-    if (!post.healthScore.length) {
-        errors.healthScore = 'Escribe una serie de pasos sobre cómo cocinar la receta'
+    if (!post.analyzedInstructions) {
+        errors.analyzedInstructions = 'Escribe una serie de pasos sobre cómo cocinar la receta'
     }
     if (!post.image) {
         errors.image = 'Ingresar URL de alguna imagen representativa'
@@ -40,13 +40,14 @@ export default function Formulario(){
     const[crear,setCrear]=useState({
         nombre:"",
         summary:"",
+        image:"",
+        analyzedInstructions:"",
         spoonacularScore:0,
         healthScore:0,
-        image:"",
-        analyzedInstructions:[],
-        diets:[]
+        diets:[],
     })
-    function handleCrear(e){
+    function handleCrear(e){ 
+        e.preventDefault()  
         setCrear({
             ...crear,
             [e.target.name]:e.target.value
@@ -57,12 +58,15 @@ export default function Formulario(){
         }))
     }
     function handleComprobar(e){
-        e.prevenrDefault();
-        if(Object.values(errors).length > 0){ alert ('Campos incompletos');
+        e.preventDefault();
+        console.log(errors)
+        console.log(crear)
+        if(Object.keys(errors).length > 0){
+            alert ("Campos incompletos")
         }else{
-            dispatch(CrearReceta(crear));
+            dispatch(postRecipe(crear));
             alert ('Receta creada');
-        }
+        } 
     };
     function handleSelector(e){
         if(!crear.diets.includes(e.target.value)){
@@ -77,21 +81,11 @@ export default function Formulario(){
             }))
         }
     }
-    function handle_P_a_P(e) {
-        setCrear({
-            ...crear,
-            analyzedInstructions: [e.target.value]
-        });
-        setErrors(Validator({
-            ...crear,
-            analyzedInstructions: e.target.value
-        }));
-    }
 
-    function handleEliminarDiet(diet) {
+    function handleEliminarDiet(d) {
         setCrear({
             ...crear,
-            diets: crear.diets.filter(elemet => elemet !== diet)
+            diets: crear.diets.filter(elemet => elemet !== d)
         })
         setErrors(Validator({
             ...crear,
@@ -145,7 +139,7 @@ export default function Formulario(){
                     </div>
                     <div>
                         <label>Paso a Paso</label>
-                        <textarea type="text" value={crear.Paso_a_paso} name="analyzedInstructions" onChange={e => handle_P_a_P(e) }/>
+                        <textarea type="text" value={crear.analyzedInstructions} name="analyzedInstructions" onChange={e => handleCrear(e) }/>
                         {errors.analyzedInstructions && (
                             <p>{errors.analyzedInstructions}</p>
                         )}
@@ -161,9 +155,9 @@ export default function Formulario(){
                             <p>{errors.diets}</p>
                         )}
                         {crear.diets.map(d =>
-                            (<div key={d.id} className="divdiets">
-                                <p  key={d.id} className="selecteddiets">{d}</p>
-                                <button key={d.id} onClick={() => handleEliminarDiet(d)}
+                            (<div key={d} className="divdiets">
+                                <p  className="selecteddiets">{d}</p>
+                                <button  onClick={() => handleEliminarDiet(d)}
                                 className="buttonclose">X</button>
                             </div>)
                         )}

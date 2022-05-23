@@ -1,7 +1,7 @@
 import {
     GET_RECETAS,GET_DIETAS,ORDEN_POR_SCORE,
     FILTRADO_POR_DIETAS,ORDEN_POR_NOMBRE,
-    BUSCAR_POR_NOMBRE,GET_DETALLE
+    BUSCAR_POR_NOMBRE,GET_DETALLE,POST_RECIPE
 } from "../actions/index.js"
 const initialState = {
     recipes : [],
@@ -84,7 +84,7 @@ function rootReducer (state = initialState , action){
             ...state,
             recipes: arreglo 
         }
-        case BUSCAR_POR_NOMBRE:
+        case BUSCAR_POR_NOMBRE:           
             return {
                 ...state,
                 recipes: action.payload
@@ -93,6 +93,10 @@ function rootReducer (state = initialState , action){
             return {
                 ...state,
                 Detalle: action.payload
+            }
+        case POST_RECIPE:
+            return {
+                ...state
             }
         default:
             return state

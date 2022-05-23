@@ -6,6 +6,7 @@ export const ORDEN_POR_SCORE="ORDEN_POR_SCORE"
 export const ORDEN_POR_NOMBRE="ORDEN_POR_NOMBRE"
 export const BUSCAR_POR_NOMBRE="BUSCAR_POR_NOMBRE"
 export const GET_DETALLE="GET_DETALLE"
+export const POST_RECIPE = 'POST_RECIPE'
 
 export function getRecetas(){
     return async function(dispatch){
@@ -16,10 +17,15 @@ export function getRecetas(){
         })
     }
 }
-export function CrearReceta(payload){
+export function postRecipe(payload){
     return async function (){
-        let json = await axios.post('http://localhost:3001/recipe',payload)
-        return json;
+        try {
+            let json = await axios.post('http://localhost:3001/recipe',payload)
+            console.log(json)
+            return json;
+        } catch (error) {
+            console.log(error.message)
+        } 
     }
 }
 export function getDietas() {
