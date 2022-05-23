@@ -162,7 +162,9 @@ export default function Formulario(){
                             </div>)
                         )}
                     </div>
-                    <button type="submit" className="createButton">Crear!</button>
+                    <div className="ContainerButton">
+                        <button type="submit" className="createButton">Crear!</button>
+                    </div>
                 </form>
                 </div>
             </div>

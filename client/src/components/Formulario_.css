@@ -7,6 +7,9 @@
     margin: 1rem;
     padding: 1rem;
 }
+.ContainerButton{
+    margin: 5px; 
+}
 .bkg{
     background-image: url('https://img.freepik.com/foto-gratis/ingredientes-comida-sana-mesa-madera_35641-3151.jpg');
     background-size: cover;
@@ -120,6 +123,7 @@ textarea:focus ~ p, input:focus ~p, select:focus ~p{
     text-decoration: none;
     cursor: pointer;
     transition-duration: 0.4s;
+    
 }
 .createButton:hover{
     background-color: rgb(212, 79, 79);
