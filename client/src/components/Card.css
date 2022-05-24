@@ -34,13 +34,13 @@
   flex-wrap: wrap;
   justify-content: center;
   background-color: #38769a3a;
-  border: rgba(145, 99, 0, 0.923) 3px solid;
+  border: rgba(145, 99, 0, 0.927) 3px solid;
   border-radius: 10px;
 }
 .image{
   margin: 10px auto;
   float: right;
-  border: rgba(145, 99, 0, 0.923) 3px solid;
+  border: rgba(0, 0, 0, 0.207) 3px solid;
   border-radius: 20px;
 }
 .Boton {
