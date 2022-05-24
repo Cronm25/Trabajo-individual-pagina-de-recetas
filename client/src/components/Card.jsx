@@ -20,7 +20,7 @@ export default function Card({ nombre, id, diets, image, createdInDb}) {
         
                 <div className="cardContainer">
                     <h1 className="cardTitle" >{nombre}</h1> 
-                    <img src={image} alt="not found"  />
+                    <img src={image} alt="not found" width="200px" height= "210px" className="image" />
                     <ul className="cardDescription">{!createdInDb?diets.map(d => (<li key={d}>{d}</li>)) :diets.map(d => (<li key={d.name}>{d.name}</li>))}</ul>      
                     <div >
                         <Link to={'/recipe/' + id} className="Boton">

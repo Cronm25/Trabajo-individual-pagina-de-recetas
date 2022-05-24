@@ -13,6 +13,10 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 25px;
   margin: 10px 0;
+  top: 10px auto;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .cardDescription {
@@ -25,23 +29,23 @@
 .cardContainer {
   margin: 10px auto;
   display: flex;
+  flex-direction: column;
+  width:250px;
   flex-wrap: wrap;
   justify-content: center;
-  width:500px;
   background-color: #38769a3a;
   border: rgba(145, 99, 0, 0.923) 3px solid;
-  border-radius: 5px;
-
-
+  border-radius: 10px;
 }
-.img img {
-    width: 200px;
-    height: 210px;
-    padding-left: 50px;
+.image{
+  margin: 10px auto;
+  float: right;
+  border: rgba(145, 99, 0, 0.923) 3px solid;
+  border-radius: 20px;
 }
 .Boton {
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 6px;
     margin: 5px 0 20px;

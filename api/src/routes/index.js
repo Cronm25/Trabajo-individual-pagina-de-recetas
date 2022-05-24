@@ -51,22 +51,27 @@ router.get('/recipes/:id',async(req,res)=>{
 })
 router.get('/types',async(req,res)=>{
     try {
-        let dietList= await funcion__.getAllRecipes();
-        //const dietas = await dietList.map( d => d.diets);
-        //const dietas_sin_repetdas=await dietas.map(elementos=>{
-        //for (let i = 0; i < elementos.length; i++)return elementos[i]})
-        const repeated = await dietList.map( d => d.diets).flat(1);
-        const dietas_sin_repetidas= [... new Set(repeated)]
-        dietas_sin_repetidas.forEach(element => {
-            Diet.findOrCreate({
-                where:{name:element}
-            })
-        });
-        const AllDiets= await Diet.findAll();
-        res.status(200).json(AllDiets);
-    } catch (error) {
-        console.log(error.message)
+        const diets = await Diet.findAll();
+        diets.length ?
+            res.send(diets) :
+            res.send('error al traer dietas');
+    } catch (e) {
+        next(e)
     }
+    //try {
+    //    let dietList= await funcion__.getAllRecipes();
+    //    const repeated = await dietList.map( d => d.diets).flat(1);
+    //    const dietas_sin_repetidas= [... new Set(repeated)]
+    //    dietas_sin_repetidas.forEach(element => {
+    //        Diet.findOrCreate({
+    //            where:{name:element}
+    //        })
+    //    });
+    //    const AllDiets= await Diet.findAll();
+    //    res.status(200).json(AllDiets);
+    //} catch (error) {
+    //    console.log(error.message)
+    //}
     
 })
 router.post('/recipe', async(req,res)=>{
