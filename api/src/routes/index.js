@@ -16,7 +16,6 @@ router.get('/recipes',async (req,res)=>{
     if(name){
         try {
                 let recipes= await funcion__.getAllRecipes();
-                console.log("//",recipes)
                 let RecipeName = await recipes.filter(el => el.nombre.toLowerCase().includes(name.toLowerCase()))
                 RecipeName.length ?
                 res.status(200).json(RecipeName) : 
@@ -82,8 +81,16 @@ router.post('/recipe', async(req,res)=>{
             analyzedInstructions:analyzedInstructions,
             createdInDb
         })
-        let DietasDB=await Diet.findAll({where:{name:diets}})
-        Crear_receta.addDiet(DietasDB)
+        diets.map(async d => {
+            const dbDiet = await Diet.findOrCreate({
+                where: {
+                    name: d
+                }
+            })
+            Crear_receta.addDiet(dbDiet[0]);
+        })
+        //let DietasDB=await Diet.findAll({where:{name:diets}})
+        //Crear_receta.addDiet(DietasDB)
         res.status(201).send("Receta creada")
     } catch (error) {
         console.log(error.message)

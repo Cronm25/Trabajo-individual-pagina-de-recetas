@@ -1,7 +1,7 @@
 import React from "react";
 import {useState,useEffect} from "react";
 import {useDispatch,useSelector} from "react-redux"
-import { getRecetas,OrdenPorScore,OrdenPorNombre,FiltradoPorDietas,getDietas} from "../actions";
+import { getRecetas,OrdenPorScore,OrdenPorNombre,FiltradoPorDietas,getDietas,FiltradoPorBD} from "../actions";
 import Card from "./Card";
 import Paginado from "./Paginas_N";
 import Buscar from "./Buscador";
@@ -41,7 +41,13 @@ export default function Home (){
         e.preventDefault();
         dispatch(FiltradoPorDietas(e.target.value));
         setCurrentPage(1);
-        setOrden(`Ordenado ${e.target.value}`)
+        setOrden(`filtrado ${e.target.value}`)
+    }
+    function handleFiltroBD(e){
+        e.preventDefault();
+        dispatch(FiltradoPorBD(e.target.value));
+        setCurrentPage(1);
+        setOrden(`filtrado ${e.target.value}`)
     }
     function returnToFirstPage() {
         setCurrentPage(1)
@@ -60,6 +66,11 @@ export default function Home (){
                     <option value="default" disabled >Puntuacion saludable</option>
                     <option value="Descendente">Descendente</option>
                     <option value="Ascendente">Ascendente</option>
+            </select>
+            <select onChange={e=>handleFiltroBD(e)} defaultValue='default' className="filters">
+                    <option value="default" disabled >Base de datos</option>
+                    <option value="si">si</option>
+                    <option value="no">no</option>
             </select>
             <select onChange={e=>handleFiltroDietas(e)} defaultValue='default' className="filters">
                     <option value="default" disabled >Filtro de dietas</option>

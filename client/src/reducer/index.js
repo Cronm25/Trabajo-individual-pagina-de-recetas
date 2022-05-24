@@ -2,6 +2,7 @@ import {
     GET_RECETAS,GET_DIETAS,ORDEN_POR_SCORE,
     FILTRADO_POR_DIETAS,ORDEN_POR_NOMBRE,
     BUSCAR_POR_NOMBRE,GET_DETALLE,POST_RECIPE
+    ,FILTRADO_POR_BD
 } from "../actions/index.js"
 const initialState = {
     recipes : [],
@@ -25,7 +26,7 @@ function rootReducer (state = initialState , action){
             }
         case FILTRADO_POR_DIETAS:
             const allRecetas = state.TodasRecipes
-            const dietasFiltered=action==="All"?allRecetas:
+            const dietasFiltered=action.payload==="default"?allRecetas:
             allRecetas.filter(el=>{
                 let names = !el.createdInDb?
                 el.diets.map(d => d):
@@ -35,6 +36,21 @@ function rootReducer (state = initialState , action){
             return{
                 ...state,
                 recipes: dietasFiltered,
+            }
+        case FILTRADO_POR_BD:
+            const allRecetas_ = state.TodasRecipes
+            const dietasFiltered_=action.payload==="si"?
+            allRecetas_.filter(el=>{
+                let names = el.createdInDb
+                if (names) return el
+            }):
+            allRecetas_.filter(el=>{
+                let names = el.createdInDb
+                if (!names) return el
+            })
+            return{
+                ...state,
+                recipes: dietasFiltered_,
             }
         case ORDEN_POR_SCORE:
             let arreglo1 = action.payload === "Ascendente" ?

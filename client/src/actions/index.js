@@ -2,6 +2,7 @@ import axios from "axios";
 export const GET_RECETAS="GET_RECETAS"
 export const GET_DIETAS="GET_DIETAS"
 export const FILTRADO_POR_DIETAS="FILTRADO_POR_DIETAS"
+export const FILTRADO_POR_BD="FILTRADO_POR_BD"
 export const ORDEN_POR_SCORE="ORDEN_POR_SCORE"
 export const ORDEN_POR_NOMBRE="ORDEN_POR_NOMBRE"
 export const BUSCAR_POR_NOMBRE="BUSCAR_POR_NOMBRE"
@@ -40,6 +41,13 @@ export function FiltradoPorDietas(payload){
         payload
     }
 }
+export function FiltradoPorBD(payload){
+    return{
+        type: FILTRADO_POR_BD,
+        payload
+    }
+}
+
 export function OrdenPorScore(payload){
     return{
         type: ORDEN_POR_SCORE,
