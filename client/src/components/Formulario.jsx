@@ -24,7 +24,7 @@ function Validator(post){
     if (!post.image) {
         errors.image = 'Ingresar URL de alguna imagen representativa'
     }
-    if (!post.diets.length) {
+    if (post.diets.length>0) {
         errors.diets = 'Elige al menos un tipo de dieta'
     }
     return errors
@@ -61,12 +61,12 @@ export default function Formulario(){
         e.preventDefault();
         console.log(errors)
         console.log(crear)
-        if(Object.keys(errors).length > 0){
+        if(!crear.nombre||Object.keys(errors).length > 0){
             alert ("Campos incompletos")
         }else{
             dispatch(postRecipe(crear));
             alert ('Receta creada');
-        } 
+        }
     };
     function handleSelector(e){
         if(!crear.diets.includes(e.target.value)){
@@ -100,7 +100,7 @@ export default function Formulario(){
             <div className="bkg">
             <div className="bkgcolor">
                 <div className="form">
-                    <h1>Crear receta</h1>
+                    <h1>Crear receta</h1>  
                 <form onSubmit={e => handleComprobar(e)}>
                     <div>
                         <label>Nombre</label>
