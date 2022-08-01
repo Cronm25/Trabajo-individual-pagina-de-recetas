@@ -13,7 +13,7 @@ export default function Home (){
     const diets = useSelector(state => state.Dietas);
     const [orden,setOrden]= useState(1)
     const [currentPage,setCurrentPage]= useState(1)
-    const [RecetasPorPagina,setRecetasPorPagina]=useState(9)
+    const [RecetasPorPagina,setRecetasPorPagina]=useState(8)
     const indexDeLaUltimaReceta = currentPage*RecetasPorPagina
     const indexDeLaPrimeraReceta = indexDeLaUltimaReceta - RecetasPorPagina
     const currentRecetas = recipes.slice(indexDeLaPrimeraReceta,indexDeLaUltimaReceta)
